@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+    <head>
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <style>
+        body {
+          background-image: url('../images/yui-guitar.jpg') !important;
+          background-size: cover !important;
+          background-position: center !important;
+          height: 100% !important;
+        }
+        
+        .topnav {
+          overflow: hidden;
+          background-color: #333;
+        }
+        
+        .topnav a {
+          float: left;
+          color: #f2f2f2;
+          text-align: center;
+          padding: 14px 16px;
+          text-decoration: none;
+          font-size: 17px;
+        }
+        
+        .topnav a:hover {
+          background-color: #ddd;
+          color: black;
+        }
+
+        .active {
+            background-color: #3d3c3c;
+        }
+                
+        /* Create a right-aligned (split) link inside the navigation bar */
+        .topnav a.split {
+          float: right;
+          background-color: #04AA6D;
+          color: white;
+        }
+
+        .chord-container {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin-bottom: 20px;
+        }
+
+        .appear{
+          height:2000px;
+          width:200px;
+        }
+      </style>
+
+      <link rel="stylesheet" href="https://unpkg.com/@sakun/system.css" />
+
+    </head>
+
+    <body background="../images/yui-guitar.jpg">
+      <h1>Guitar Website</h1>
+      <h2>by ABOBA</h2>
+      <div class="topnav">
+        <a href="index.html">Home</a>
+        <a href="braintuner.html">Brain Tuner</a>
+        <a href="scales.html">Scales</a>
+        <a class="active" href="chords.html">Chords</a>
+        
+        <a href="technique.html">Technique</a>
+        <a href="theory.html">Theory</a>
+
+        <a href="contact.html">Contact me :3</a>
+        
+        <a href="help.html" class="split">Help</a>
+      </div>
+
+      <br>
+
+      <div class="chord-container">
+        <input type="button" value="RND Chord" id="appear" class="button appearButton" style="height:40px; width:120px"></input>
+        <canvas id="chordCanvas" style='background-color: rgb(198, 11, 11)' width="300" height="120"></canvas>
+      </div>
+    
+
+      <!--<div class="window" style="width: 400px; height: auto;">
+        <div class="title-bar">
+          <h1 class="title">Window With Stuff</h1>
+        </div>
+        <div class="separator"></div>
+      
+        <div class="window-pane">
+          Insert Chord Here
+        </div>
+      </div>
+
+      <div class="window" style="width: 400px; height: auto;">
+        <div class="title-bar">
+          <h1 class="title">Window With Stuff</h1>
+        </div>
+        <div class="separator"></div>
+      
+        <div class="window-pane">
+          Insert Chord Here
+        </div>
+      </div>-->
+      
+
+
+      <script>
+        
+        const button = document.getElementById("appear");
+        button.addEventListener("click", generateChord);
+
+        function generateChord() {
+        // THIS IS FOR THE CHORD GENERATOR
+        let canvas = document.getElementById("chordCanvas");
+        let ctx = canvas.getContext("2d");
+
+        ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear the canvas before drawing
+
+        // Draw horizontal lines (strings)
+        const stringPositions = [10, 30, 50, 70, 90, 110];
+        stringPositions.forEach(y => {
+            ctx.beginPath();
+            ctx.moveTo(0, y);
+            ctx.lineTo(300, y);
+            ctx.stroke();
+        });
+
+        // Draw vertical lines (frets)
+        const fretPositions = [100, 200];
+        fretPositions.forEach(x => {
+            ctx.beginPath();
+            ctx.moveTo(x, 0);
+            ctx.lineTo(x, 140);
+            ctx.stroke();
+        });
+
+        // Generate a random number to see which chord to play
+        const randomNumber = Math.floor(Math.random() * 14) + 1;
+        //const randomNumber = 14;
+        document.getElementById("appear").value = getChordName(randomNumber);
+        drawChord(ctx, randomNumber);
+    }
+
+    function getChordName(number) {
+        const chordNames = ["A chord", "B chord", "C chord", "D chord", "E chord", "F chord", "G chord", "Am chord", "Bm chord", "Cm chord", "Dm chord", "Em chord", "Fm chord", "Gm chord"];
+        return chordNames[number - 1];
+    }
+
+    function drawChord(ctx, number) {
+        // MAKING THE CHORD SHOW UP
+        const chordPositions = {
+            1: [[150, 30], [150, 50], [150, 70]],
+            2: [[50, 10], [50, 90], [250, 30], [250, 50], [250, 70]],
+            3: [[50, 30], [150, 70], [250, 90]],
+            4: [[150, 10], [150, 50], [250, 30]],
+            5: [[50, 50], [150, 70], [150, 90]],
+            6: [[50, 10], [50, 30], [150, 50], [250, 70]],
+            7: [[150, 90], [250, 10], [250, 110]],
+            8: [[50, 30], [150, 50], [150, 70]],
+            9: [[50, 10], [50, 90], [150, 30], [250, 50], [250, 70]],
+            10: [[50, 10], [50, 90], [150, 30], [250, 50], [250, 70]],
+            11: [[50, 10], [150, 50], [250, 30]],
+            12: [[150, 70], [150, 90]],
+            13: [[50, 10], [50, 30], [150, 90], [150, 70], [50, 50], [50, 110]],
+            14: [[50, 10], [50, 30], [150, 90], [150, 70], [50, 50], [50, 110]],
+        };
+        ctx.fillStyle = "green";
+        chordPositions[number].forEach(pos => {
+            ctx.beginPath();
+            ctx.arc(pos[0], pos[1], 10, 0, 2 * Math.PI);
+            ctx.fill();
+            ctx.stroke();
+        });
+      }
+      </script>
+    </body>
+
+</html>

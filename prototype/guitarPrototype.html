@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="../prototype/guitarPrototype.css">
+    </head>
+    <body background="../images/yui-guitar.jpg">
+        <h1>Guitar Practice Routine</h1>
+        <h2>by ABOBA</h2>
+
+
+        <div class="container">
+            <div class="strumming-container">
+                <label class="aa" for="quantity">Strumming:</label>
+                <input class="aa" type="number" id="strummingNumber" min="1" style='width: 40px'>
+                <button id="generate" class="button generateButton">Strum !</button>
+                <canvas id="strummingCanvas"></canvas>
+                
+            </div>
+            
+            <div class="chord-container">
+                <input type="button" value="Chord !" id="appear" class="button appearButton"></input>
+                <canvas id="chordCanvas" style='background-color: rgb(198, 11, 11)' width="300" height="120"></canvas>
+            </div>
+        </div>
+        
+        <div class="guitar-container">
+            <img id="guitarTuning" src="../images/guitar.png" alt="tuning">
+            <canvas id="overlayCanvas" width="250" height="400"></canvas>
+        </div>        
+        
+        
+        
+        
+
+        <script src="../prototype/guitarPrototype.js"></script>
+    </body>
+</html>

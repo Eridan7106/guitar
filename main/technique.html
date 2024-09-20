@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+    <head>
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <style>
+        body {
+          background-image: url('../images/yui-guitar.jpg') !important;
+          background-size: cover !important;
+          background-position: center !important;
+          height: 100% !important;
+        }
+        
+        .topnav {
+          overflow: hidden;
+          background-color: #333;
+        }
+        
+        .topnav a {
+          float: left;
+          color: #f2f2f2;
+          text-align: center;
+          padding: 14px 16px;
+          text-decoration: none;
+          font-size: 17px;
+        }
+        
+        .topnav a:hover {
+          background-color: #ddd;
+          color: black;
+        }
+
+        .active {
+            background-color: #3d3c3c;
+        }
+        
+        /* Create a right-aligned (split) link inside the navigation bar */
+        .topnav a.split {
+          float: right;
+          background-color: #04AA6D;
+          color: white;
+        }
+
+        .strumming-container{
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+      </style>
+
+      <link rel="stylesheet" href="https://unpkg.com/@sakun/system.css" />
+
+    </head>
+
+    <body background="../images/yui-guitar.jpg">
+      <h1>Guitar Website</h1>
+      <h2>by ABOBA</h2>
+      <div class="topnav">
+        <a href="index.html">Home</a>
+        <a href="braintuner.html">Brain Tuner</a>
+        <a href="scales.html">Scales</a>
+        <a href="chords.html">Chords</a>
+        
+        <a class="active" href="technique.html">Technique</a>
+        <a href="theory.html">Theory</a>
+
+        <a href="contact.html">Contact me :3</a>
+        
+        <a href="help.html" class="split">Help</a>
+      </div>
+
+      <div class="strumming-container">
+        <label class="aa" for="quantity">Strumming:</label>
+        <input class="aa" type="number" id="strummingNumber" min="1" style="height:38px; width:50px">
+        <input type="button" value="Strum !" id="generate" class="button generateButton" style="height:40px; width:105px"></input>
+        <canvas id="strummingCanvas"></canvas>
+      </div>
+    </body>
+    <script>
+      const button1 = document.getElementById("generate");
+      button1.addEventListener("click", generateStrummingPattern);
+
+      const arrowDown = new Image();
+      arrowDown.src = '../images/arrow_down.png';
+
+      const arrowUp = new Image();
+      arrowUp.src = '../images/arrow_up.png';
+
+      const noArrow = new Image();
+      noArrow.src = '../images/no_arrow.png';
+
+      function generateStrummingPattern() {
+        // MAKING STRUMMING PATTERN 
+        const canvas = document.getElementById('strummingCanvas');
+        const ctx = canvas.getContext('2d');
+        const numberOfStrums = document.getElementById('strummingNumber').value;
+
+        // Clear the canvas
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        // Set canvas dimensions
+        const canvasWidth = 300; // Adjust this value as needed
+        const canvasHeight = 150; // Adjust this value as needed
+        canvas.width = canvasWidth;
+        canvas.height = canvasHeight;
+
+        // Define strumming pattern
+        const strummingPattern = [];
+        for (let i = 0; i < numberOfStrums; i++) {
+            if (i % 2 === 1) {
+                // Even index: Up strum or No strum
+                strummingPattern.push(Math.random() > 0.3 ? 'U' : 'x');
+            } else {
+                // Odd index: Down strum or No strum
+                strummingPattern.push(Math.random() > 0.3 ? 'D' : 'x');
+            }
+        }
+
+        // Draw strumming pattern
+        const step = canvas.width / numberOfStrums;
+        const imgWidth = 50; // Set the desired width for the images
+        const imgHeight = 80; // Set the desired height for the images
+
+        for (let i = 0; i < numberOfStrums; i++) {
+            let img;
+            if (strummingPattern[i] === 'U') {
+                img = arrowUp;
+            } else if (strummingPattern[i] === 'D') {
+                img = arrowDown;
+            } else {
+                img = noArrow;
+            }
+            ctx.drawImage(img, step * i + step / 2 - imgWidth / 2, canvas.height / 2 - imgHeight / 2, imgWidth, imgHeight);
+        }
+      }
+
+    </script>
+</html>

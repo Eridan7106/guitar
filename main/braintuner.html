@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html>
+    <head>
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <style>
+        body {
+          background-image: url('../images/yui-guitar.jpg') !important;
+          background-size: cover !important;
+          background-position: center !important;
+          height: 100% !important;
+        }
+        
+        .topnav {
+          overflow: hidden;
+          background-color: #333;
+        }
+        
+        .topnav a {
+          float: left;
+          color: #f2f2f2;
+          text-align: center;
+          padding: 14px 16px;
+          text-decoration: none;
+          font-size: 17px;
+        }
+        
+        .topnav a:hover {
+          background-color: #ddd;
+          color: black;
+        }
+
+        .active {
+           background-color: #3d3c3c;
+        }
+        
+        /* Create a right-aligned (split) link inside the navigation bar */
+        .topnav a.split {
+          float: right;
+          background-color: #04AA6D;
+          color: white;
+        }
+
+
+        .guitar-container {
+          position: absolute; /* Use absolute positioning for more control */
+          top: 45%; /* Adjust this value to move the container up or down */
+          left: 30%; /* Center the container horizontally */
+          transform: translateX(-50%); /* Center the container horizontally */
+          width: 250px; /* Adjust the width to match the guitar image */
+          height: 400px; /* Adjust the height to match the guitar image */
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          flex-direction: column;
+        }
+
+        #guitarTuning {
+          width: 100%; /* Ensure the image fits within the container */
+          height: auto;
+          z-index: 1; /* Set a lower z-index for the image */
+        }
+
+        #overlayCanvas {
+          /*background: black;*/
+          position: absolute; /* Use absolute positioning for the overlay canvas */
+          top: 0%;
+          left: 0%;
+          pointer-events: none; /* Ensure the canvas doesn't interfere with clicks */
+          z-index: 2; /* Set a higher z-index for the overlay canvas */
+        }
+      </style>
+
+      <link rel="stylesheet" href="https://unpkg.com/@sakun/system.css" />
+
+    </head>
+
+    <body background="../images/yui-guitar.jpg">
+      <h1>Guitar Website</h1>
+      <h2>by ABOBA</h2>
+      <div class="topnav">
+        <a href="index.html">Home</a>
+        <a class="active" href="braintuner.html">Brain Tuner</a>
+        <a href="scales.html">Scales</a>
+        <a href="chords.html">Chords</a>
+        
+        <a href="technique.html">Technique</a>
+        <a href="theory.html">Theory</a>
+
+        <a href="contact.html">Contact me :3</a>
+        
+        <a href="help.html" class="split">Help</a>
+      </div>
+
+      <div class="guitar-container">
+        <img id="guitarTuning" src="../images/guitar.png" alt="tuning">
+        <canvas id="overlayCanvas" width="250" height="400"></canvas>
+      </div> 
+
+      <br>
+      <form action="/action_page.php">
+        <label for="tunings">Choose a tuning:</label>
+        <select id="tunings" name="tunings" style="width: 250px;">
+          <option value="standard">Standard (E A D G B E)</option>
+          <option disabled value="bStandard">B Standard (B E A D F# B)</option>
+          <option disabled value="openB">Open B (B F# B E G# C#)</option>
+          <option disabled value="dropC">Drop C (C G C F A D)</option>
+          <option disabled value="openC">Open C (C G C G C E)</option>
+          <option disabled value="dropD">Drop D (D A G G B E)</option>
+          <option disabled value="openD">Open D (D A D F# A D)</option>
+          <option disabled value="openG">Open G (D G D G B D)</option>
+        </select>
+      </form>
+
+      <h2>Current tuning: Standard</h2>
+      <h7>(No other tunings are supported as of now)</h7>
+      <script>
+        document.getElementById('guitarTuning').addEventListener('click', function(event) {
+          var img = event.target;
+          var x = (event.offsetX / img.clientWidth) * 100;
+          var y = (event.offsetY / img.clientHeight) * 100;
+          handleGuitarTuningClick(x, y);
+        });
+        
+        let wait = false;
+        var E1 = new Audio('../sounds/LowE.mp3');
+        var A = new Audio('../sounds/A.mp3');
+        var D = new Audio('../sounds/D.mp3');
+        var G = new Audio('../sounds/G.mp3');
+        var B = new Audio('../sounds/B.mp3');
+        var E2 = new Audio('../sounds/HighE.mp3');
+
+
+
+        function handleGuitarTuningClick(x, y) {
+          // MAKING THE LIGHTING UP AND SOUND FOR THE TUNING
+          console.log('Guitar Tuning clicked at:', x + '%', y + '%');
+
+          // Define areas
+          let left = false; let right = false;
+          if(x >= 0 && x < 40)
+              left = true;
+          else if(x > 60 && x <= 100)  
+              right = true;
+
+          let top = false; let middle = false; let bottom = false;
+          if(y > 25 && y < 38)
+              top = true;
+          else if(y > 38 && y < 56)  
+              middle = true;
+          else if(y > 56 && y < 70)  
+              bottom = true;
+
+          // 20 40 60 80
+
+          if (left && bottom && !wait) {
+              // E
+          
+              let canvas = document.getElementById("overlayCanvas");
+              let ctx = canvas.getContext("2d");
+              ctx.beginPath();
+              ctx.arc(78, 260, 12, 0, 2 * Math.PI);
+              ctx.fillStyle = '#24e259';
+              ctx.fill();
+              ctx.stroke();
+          
+              wait = true;
+              E1.play();
+              // Clear the canvas after 2 seconds (2000 milliseconds)
+              setTimeout(function() {
+                  ctx.clearRect(0, 0, canvas.width, canvas.height);
+                  wait = false;
+              }, 2450);
+          }
+          else if (left && middle && !wait) {
+              // A
+              
+              let canvas = document.getElementById("overlayCanvas");
+              let ctx = canvas.getContext("2d");
+              ctx.beginPath();
+              ctx.arc(83, 190, 12, 0, 2 * Math.PI);
+              ctx.fillStyle = '#24e259';
+              ctx.fill();
+              ctx.stroke();
+          
+              wait = true;
+              A.play();
+              // Clear the canvas after 2 seconds (2000 milliseconds)
+              setTimeout(function() {
+                  ctx.clearRect(0, 0, canvas.width, canvas.height);
+                  wait = false;
+              }, 2450);
+          }else if (left && top && !wait) {
+              // D
+              
+              let canvas = document.getElementById("overlayCanvas");
+              let ctx = canvas.getContext("2d");
+              ctx.beginPath();
+              ctx.arc(78, 120, 12, 0, 2 * Math.PI);
+              ctx.fillStyle = '#24e259';
+              ctx.fill();
+              ctx.stroke();
+          
+              wait = true;
+              D.play();
+              // Clear the canvas after 2 seconds (2000 milliseconds)
+              setTimeout(function() {
+                  ctx.clearRect(0, 0, canvas.width, canvas.height);
+                  wait = false;
+              }, 2450);
+          }else if (right && top && !wait) {
+              // G
+              
+              let canvas = document.getElementById("overlayCanvas");
+              let ctx = canvas.getContext("2d");
+              ctx.beginPath();
+              ctx.arc(176, 120, 12, 0, 2 * Math.PI);
+              ctx.fillStyle = '#24e259';
+              ctx.fill();
+              ctx.stroke();
+          
+              wait = true;
+              G.play();
+              // Clear the canvas after 2 seconds (2000 milliseconds)
+              setTimeout(function() {
+                  ctx.clearRect(0, 0, canvas.width, canvas.height);
+                  wait = false;
+              }, 2450);
+          } else if (right && middle && !wait) {
+              // B
+              
+              let canvas = document.getElementById("overlayCanvas");
+              let ctx = canvas.getContext("2d");
+              ctx.beginPath();
+              ctx.arc(173, 190, 12, 0, 2 * Math.PI);
+              ctx.fillStyle = '#24e259';
+              ctx.fill();
+              ctx.stroke();
+          
+              wait = true;
+              B.play();
+              // Clear the canvas after 2 seconds (2000 milliseconds)
+              setTimeout(function() {
+                  ctx.clearRect(0, 0, canvas.width, canvas.height);
+                  wait = false;
+              }, 2450);
+          } else if (right && bottom && !wait) {
+              // E
+              
+              let canvas = document.getElementById("overlayCanvas");
+              let ctx = canvas.getContext("2d");
+              ctx.beginPath();
+              ctx.arc(178, 260, 12, 0, 2 * Math.PI);
+              ctx.fillStyle = '#24e259';
+              ctx.fill();
+              ctx.stroke();
+              
+              wait = true;
+              E2.play();
+              // Clear the canvas after 2 seconds (2000 milliseconds)
+              setTimeout(function() {
+                  ctx.clearRect(0, 0, canvas.width, canvas.height);
+                  wait = false;
+              }, 2450);
+          }
+        }
+      </script>
+
+    </body>
+</html>
