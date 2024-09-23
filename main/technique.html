@@ -2,12 +2,22 @@
 <html>
     <head>
       <meta name="viewport" content="width=device-width, initial-scale=1">
+      
       <style>
+        @import url('https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+        *{
+          padding: 0%;
+          margin: 0%;
+        }
+        
         body {
           background-image: url('../images/yui-guitar.jpg') !important;
           background-size: cover !important;
           background-position: center !important;
           height: 100% !important;
+
+          font-family: 'Barlow', sans-serif;
         }
         
         .topnav {
@@ -45,6 +55,58 @@
           align-items: center;
           justify-content: center;
         }
+
+        .metronome-container{
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          height: 75vh;
+        }
+
+        .metronome{
+          border: 1px solid #000;
+          display: flex;
+          flex-direction: column;
+          width: 300px;
+          height: 250px;
+          justify-content: space-between;
+        }
+
+        .bpmDisplay{
+          width: 100%;
+          text-align: center;
+          color: #fa545c;
+          font-weight: bold;
+        }
+
+        .bpmDisplay .tempo{
+          font-size: 4em;
+        }
+
+        .tempoSettings{
+          display: flex;
+          justify-content: space-between;
+        }
+
+        .tempoSettings .adjustTempo{
+          width: 30px;
+          height: 30px;
+          font-size: 40px;
+          border-radius: 50%;
+          border: 1px solid #ddd;
+          text-align: center;
+          cursor: pointer;
+        }
+        .tempoSettings .adjustTempo:hover{
+          background: #fa545c;
+          color: #fff;
+        }
+        .tempoSettings .decreaseTempo {
+          line-height: 25px;
+        }
+        .tempoSettings .increaseTempo {
+          line-height: 27px;
+        }
       </style>
 
       <link rel="stylesheet" href="https://unpkg.com/@sakun/system.css" />
@@ -73,6 +135,29 @@
         <input class="aa" type="number" id="strummingNumber" min="1" style="height:38px; width:50px">
         <input type="button" value="Strum !" id="generate" class="button generateButton" style="height:40px; width:105px"></input>
         <canvas id="strummingCanvas"></canvas>
+      </div>
+      
+      <div class="metronome-container">
+        <div class="metronome">
+          <div class="bpmDisplay">
+            <span class="tempo">140</span>
+            <span class="bpm">BPM</span>
+          </div>
+
+          <div class="tempoSettings">
+            <div class="adjustTempo decreaseTempo">-</div>
+            <input type="range" min="20" max="260" step="1" class="slider">
+            <div class="adjustTempo increaseTempo">+</div>
+          </div>
+
+          <div class="start-stop">START</div>
+
+          <div class="measures">
+            <div class="subtractBeats stepper">-</div>
+            <div class="measureCount">140</div>
+            <div class="addBeats stepper">+</div>
+          </div>
+        </div>
       </div>
     </body>
     <script>
