@@ -16,6 +16,7 @@
           background-size: cover !important;
           background-position: center !important;
           height: 100% !important;
+          user-select: none;
 
           font-family: 'Barlow', sans-serif;
         }
@@ -191,13 +192,43 @@
 
           <div class="measures">
             <div class="subtractBeats stepper">-</div>
-            <div class="measureCount">140</div>
+            <div class="measureCount">4</div>
             <div class="addBeats stepper">+</div>
           </div>
         </div>
       </div>
     </body>
     <script>
+      const tempoDisplay = document.querySelector(".tempo");
+      const tempoText = document.querySelector(".bpm");
+      const decreaseTempoButton = document.querySelector(".decreaseTempo");
+      const increaseTempoButton = document.querySelector(".increaseTempo");
+      const tempoSlider = document.querySelector(".slider");
+      const startStopButton = document.querySelector(".start-stop");
+      const subtractBeats = document.querySelector(".subtractBeats");
+      const addBeats = document.querySelector(".addBeats");
+      const measureCount = document.querySelector(".measureCount");
+
+      let bpm = 140;
+      let beatsPerMeasure = 4;
+
+      decreaseTempoButton.addEventListener('click', () => {
+        bpm--;
+        tempoDisplay.textContent = bpm;
+        tempoSlider.textValue = bpm;
+      });
+      increaseTempoButton.addEventListener('click', () => {
+        bpm++;
+        tempoDisplay.textContent = bpm;
+        tempoSlider.textValue = bpm;
+      });
+
+
+
+
+
+
+
       const button1 = document.getElementById("generate");
       button1.addEventListener("click", generateStrummingPattern);
 
