@@ -213,17 +213,44 @@
       let beatsPerMeasure = 4;
 
       decreaseTempoButton.addEventListener('click', () => {
+        if(bpm<=20) {return};
         bpm--;
-        tempoDisplay.textContent = bpm;
-        tempoSlider.textValue = bpm;
+        validateTempo();
+        updateMetronome();
       });
       increaseTempoButton.addEventListener('click', () => {
+        if(bpm>=260) {return};
         bpm++;
-        tempoDisplay.textContent = bpm;
-        tempoSlider.textValue = bpm;
+        validateTempo();
+        updateMetronome();
       });
 
+      tempoSlider.addEventListener('input', () => {
+        bpm = tempoSlider.value;
+        validateTempo();
+        updateMetronome();
+      })
 
+      subtractBeats.addEventListener('click', () => {
+        if(beatsPerMeasure<2){return}
+        beatsPerMeasure--;
+        measureCount.textContent = beatsPerMeasure;
+      });
+      addBeats.addEventListener('click', () => {
+        if(beatsPerMeasure>15){return}
+        beatsPerMeasure++;
+        measureCount.textContent = beatsPerMeasure;
+      });
+
+      
+      function updateMetronome() {
+        tempoDisplay.textContent = bpm;
+        tempoSlider.textValue = bpm;
+      }
+      function validateTempo(){
+        if(bpm<20) {return};
+        if(bpm>260) {return};
+      }
 
 
 
