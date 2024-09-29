@@ -198,7 +198,10 @@
         </div>
       </div>
     </body>
-    <script>
+
+    <script type="module">
+      import Timer from '../main/timer.js';
+
       const tempoDisplay = document.querySelector(".tempo");
       const tempoText = document.querySelector(".bpm");
       const decreaseTempoButton = document.querySelector(".decreaseTempo");
@@ -209,8 +212,13 @@
       const addBeats = document.querySelector(".addBeats");
       const measureCount = document.querySelector(".measureCount");
 
+      const click1 = new Audio("../sounds/down.wav");
+      const click2 = new Audio("../sounds/up.wav");
+
       let bpm = 140;
       let beatsPerMeasure = 4;
+      let count = 0;
+      let isRunning = false;
 
       decreaseTempoButton.addEventListener('click', () => {
         if(bpm<=20) {return};
@@ -242,16 +250,48 @@
         measureCount.textContent = beatsPerMeasure;
       });
 
+      startStopButton.addEventListener('click', () => {
+        count = 0;
+        if(!isRunning){
+          metronome.start();
+          isRunning = true;
+          startStopButton.textContent = "STOP";
+        }
+        else{
+          metronome.stop();
+          isRunning = false;
+          startStopButton.textContent = "START";
+        }
+      })
       
       function updateMetronome() {
         tempoDisplay.textContent = bpm;
-        tempoSlider.textValue = bpm;
+        tempoSlider.value = bpm;
+
+        metronome.timeInterval = 60000/bpm;
       }
       function validateTempo(){
         if(bpm<20) {return};
         if(bpm>260) {return};
       }
 
+      function playClick() {
+        if(count==beatsPerMeasure)
+          count = 0;
+        if(count==0){
+          click1.play();
+          click1.currentTime = 0;
+        }
+        else{
+          click2.play();
+          click2.currentTime = 0;
+          count++;
+        }
+      }
+      
+      const metronome = new Timer(playClick, 60000/bpm, {immediate:true});
+
+      //metronome.start();
 
 
 
