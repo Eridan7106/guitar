@@ -51,6 +51,63 @@
           height:2000px;
           width:200px;
         }
+
+
+        .modal{
+          position: fixed;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%) scale(0);
+          transition: 200ms ease-in-out;
+          border: 1px solid black;
+          border-radius: 10px;
+          z-index: 1;
+          background-color: white;
+          width: 500px;
+          max-width: 80%;
+        }
+        .modal.active {
+          transform: translate(-50%, -50%) scale(1);
+        }
+        .modal-header{
+          padding: 10px 15px;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          border-bottom: 1px solid black;
+        }
+        .modal-header .title{
+          font-size: 1.25rem;
+          font-weight: bold;
+        }
+        .modal-header .closeButton{
+          cursor: pointer;
+          border: none;
+          outline: none;
+          background: none;
+          font-size: 1.25rem;
+          font-weight: bold;
+        }
+
+        .modal .body {
+          padding: 10px 15px; 
+        }
+
+        #overlay{
+          position: fixed;
+          opacity: 0;
+          transition: 200ms ease-in-out;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background-color: rgba(0, 0, 0, .5);
+          pointer-events: none;
+        }
+        #overlay.active{
+          opacity: 1;
+          pointer-events: all;
+        }
       </style>
 
       <link rel="stylesheet" href="https://unpkg.com/@sakun/system.css" />
@@ -81,28 +138,17 @@
         <canvas id="chordCanvas" style='background-color: rgb(198, 11, 11)' width="300" height="120"></canvas>
       </div>
     
-
-      <!--<div class="window" style="width: 400px; height: auto;">
-        <div class="title-bar">
-          <h1 class="title">Window With Stuff</h1>
+      <button data-modal-target="#modal">Open Chord 1</button>
+      <div class="modal" id="modal">
+        <div class="modal-header">
+          <div class="modal-title">Title</div>
+          <button data-close-button class="closeButton">&times;</button>
         </div>
-        <div class="separator"></div>
-      
-        <div class="window-pane">
-          Insert Chord Here
+        <div class="modal-body">
+          TEST
         </div>
       </div>
-
-      <div class="window" style="width: 400px; height: auto;">
-        <div class="title-bar">
-          <h1 class="title">Window With Stuff</h1>
-        </div>
-        <div class="separator"></div>
-      
-        <div class="window-pane">
-          Insert Chord Here
-        </div>
-      </div>-->
+      <div id="overlay"></div>
       
 
 
@@ -174,6 +220,38 @@
             ctx.stroke();
         });
       }
+
+
+      const openModalButtons = document.querySelectorAll('[data-modal-target]');
+      const closeModalButtons = document.querySelectorAll('[data-close-button]');
+      const overlay = document.getElementById('overlay');
+
+      openModalButtons.forEach(button => {
+        button.addEventListener('click', () => {
+          const modal = document.querySelector(button.dataset.modalTarget);
+          openModal(modal);
+        })
+      })
+      closeModalButtons.forEach(button => {
+        button.addEventListener('click', () => {
+          const modal = button.closest('.modal');
+          closeModal(modal);
+        })
+      })
+
+      function openModal(modal){
+        if(modal == null) return
+
+        modal.classList.add('active');
+        overlay.classList.add('active');
+      }
+      function closeModal(modal){
+        if(modal == null) return
+
+        modal.classList.remove('active');
+        overlay.classList.remove('active');
+      }
+
       </script>
     </body>
 
