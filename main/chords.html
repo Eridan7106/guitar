@@ -108,6 +108,26 @@
           opacity: 1;
           pointer-events: all;
         }
+
+        .chordSelectorContainer{
+          position: absolute; /* You can change this to relative, fixed, or sticky based on your needs */
+          top: 285px; /* Adjust the top position */
+          left: 350px; /* Adjust the left position */
+          display: flex;
+          align-items: center;
+          width: 800px;
+          max-width: 90%;
+          height: 100px;
+          justify-content: space-between;
+        }
+        .minor{
+          position: absolute;
+          top: 385px;
+          left: 710px;
+          width: 80px;
+          max-width: 20%;
+          height: 40px;
+        }
       </style>
 
       <link rel="stylesheet" href="https://unpkg.com/@sakun/system.css" />
@@ -137,18 +157,87 @@
         <input type="button" value="RND Chord" id="appear" class="button appearButton" style="height:40px; width:120px"></input>
         <canvas id="chordCanvas" style='background-color: rgb(198, 11, 11)' width="300" height="120"></canvas>
       </div>
-    
-      <button data-modal-target="#modal">Open Chord 1</button>
-      <div class="modal" id="modal">
-        <div class="modal-header">
-          <div class="modal-title">Title</div>
-          <button data-close-button class="closeButton">&times;</button>
+      
+      <div class="chordSelectorContainer">
+        <button data-modal-target="#modal">A Chord</button>
+        <div class="modal" id="modal">
+          <div class="modal-header">
+            <div class="modal-title">Title</div>
+            <button data-close-button class="closeButton">&times;</button>
+          </div>
+          <div class="modal-body">
+            TEST
+          </div>
         </div>
-        <div class="modal-body">
-          TEST
+        
+        <button data-modal-target="#modal">B Chord</button>
+        <div class="modal" id="modal">
+          <div class="modal-header">
+            <div class="modal-title">Title</div>
+            <button data-close-button class="closeButton">&times;</button>
+          </div>
+          <div class="modal-body">
+            TEST
+          </div>
+        </div>
+        
+        <button data-modal-target="#modal">C Chord</button>
+        <div class="modal" id="modal">
+          <div class="modal-header">
+            <div class="modal-title">Title</div>
+            <button data-close-button class="closeButton">&times;</button>
+          </div>
+          <div class="modal-body">
+            TEST
+          </div>
+        </div>
+
+        <button data-modal-target="#modal">D Chord</button>
+        <div class="modal" id="modal">
+          <div class="modal-header">
+            <div class="modal-title">Title</div>
+            <button data-close-button class="closeButton">&times;</button>
+          </div>
+          <div class="modal-body">
+            TEST
+          </div>
+        </div>
+
+        <button data-modal-target="#modal">E Chord</button>
+        <div class="modal" id="modal">
+          <div class="modal-header">
+            <div class="modal-title">Title</div>
+            <button data-close-button class="closeButton">&times;</button>
+          </div>
+          <div class="modal-body">
+            TEST
+          </div>
+        </div>
+
+        <button data-modal-target="#modal">F Chord</button>
+        <div class="modal" id="modal">
+          <div class="modal-header">
+            <div class="modal-title">Title</div>
+            <button data-close-button class="closeButton">&times;</button>
+          </div>
+          <div class="modal-body">
+            TEST
+          </div>
+        </div>
+
+        <button data-modal-target="#modal">G Chord</button>
+        <div class="modal" id="modal">
+          <div class="modal-header">
+            <div class="modal-title">Title</div>
+            <button data-close-button class="closeButton">&times;</button>
+          </div>
+          <div class="modal-body">
+            TEST
+          </div>
         </div>
       </div>
-      <div id="overlay"></div>
+
+      <button class="minor">Minor</button>
       
 
 
