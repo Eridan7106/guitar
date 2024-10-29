@@ -61,16 +61,19 @@
           width:200px;
         }
 
-        .chordSelectorContainer{
+        .chordSelectorContainer, .chordSelectorContainer2{
           position: absolute; /* You can change this to relative, fixed, or sticky based on your needs */
-          top: 285px; /* Adjust the top position */
+          top: 325px; /* Adjust the top position */
           left: 350px; /* Adjust the left position */
           display: flex;
           align-items: center;
           width: 800px;
           max-width: 90%;
-          height: 100px;
+          height: 40px;
           justify-content: space-between;
+        }
+        .chordSelectorContainer2{
+          top: 360px;
         }
         .minor{
           position: absolute;
@@ -128,67 +131,86 @@
       </div>
       
       <div class="chordSelectorContainer">
-        <button>A Chord</button>
+        <button onclick="drawA()">A Chord</button>
         
-        <button>B Chord</button>
+        <button onclick="drawB()">B Chord</button>
         
-        <button>C Chord</button>
+        <button onclick="drawC()">C Chord</button>
 
-        <button>D Chord</button>
+        <button onclick="drawD()">D Chord</button>
 
-        <button>E Chord</button>
+        <button onclick="drawE()">E Chord</button>
 
-        <button>F Chord</button>
+        <button onclick="drawF()">F Chord</button>
 
-        <button>G Chord</button>
+        <button onclick="drawG()">G Chord</button>
       </div>
-      <button class="minor">Minor</button>
+      <div class="chordSelectorContainer2">
+        <button onclick="drawAm()">Am Chord</button>
+        
+        <button onclick="drawBm()">Bm Chord</button>
+        
+        <button onclick="drawCm()">Cm Chord</button>
+
+        <button onclick="drawDm()">Dm Chord</button>
+
+        <button onclick="drawEm()">Em Chord</button>
+
+        <button onclick="drawFm()">Fm Chord</button>
+
+        <button onclick="drawGm()">Gm Chord</button>
+      </div>
       
 
 
-      <script>
-        
-        const button = document.getElementById("appear");
-        button.addEventListener("click", generateChord);
+    <script>
+      
+      let minor = document.getElementById("minor");  // Assuming 'minor' is the ID of your input element
 
-        function generateChord() {
+      const button = document.getElementById("appear");
+      button.addEventListener("click", getRandomChord);
+
+      function drawStrings(ctx, canvas){
         // THIS IS FOR THE CHORD GENERATOR
-        let canvas = document.getElementById("chordCanvas");
-        let ctx = canvas.getContext("2d");
 
         ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear the canvas before drawing
 
         // Draw horizontal lines (strings)
         const stringPositions = [10, 30, 50, 70, 90, 110];
         stringPositions.forEach(y => {
-            ctx.beginPath();
-            ctx.moveTo(0, y);
-            ctx.lineTo(300, y);
-            ctx.stroke();
+          ctx.beginPath();
+          ctx.moveTo(0, y);
+          ctx.lineTo(300, y);
+          ctx.stroke();
         });
 
         // Draw vertical lines (frets)
         const fretPositions = [100, 200];
         fretPositions.forEach(x => {
-            ctx.beginPath();
-            ctx.moveTo(x, 0);
-            ctx.lineTo(x, 140);
-            ctx.stroke();
+          ctx.beginPath();
+          ctx.moveTo(x, 0);
+          ctx.lineTo(x, 140);
+          ctx.stroke();
         });
+      }
 
+      function getRandomChord() {
+        let canvas = document.getElementById("chordCanvas");
+        let ctx = canvas.getContext("2d");
+        drawStrings(ctx, canvas);
         // Generate a random number to see which chord to play
         const randomNumber = Math.floor(Math.random() * 14) + 1;
         //const randomNumber = 14;
         document.getElementById("appear").value = getChordName(randomNumber);
         drawChord(ctx, randomNumber);
-    }
+      }
 
-    function getChordName(number) {
-        const chordNames = ["A chord", "B chord", "C chord", "D chord", "E chord", "F chord", "G chord", "Am chord", "Bm chord", "Cm chord", "Dm chord", "Em chord", "Fm chord", "Gm chord"];
-        return chordNames[number - 1];
-    }
+      function getChordName(number) {
+          const chordNames = ["A chord", "B chord", "C chord", "D chord", "E chord", "F chord", "G chord", "Am chord", "Bm chord", "Cm chord", "Dm chord", "Em chord", "Fm chord", "Gm chord"];
+          return chordNames[number - 1];
+      }
 
-    function drawChord(ctx, number) {
+      function drawChord(ctx, number) {
         // MAKING THE CHORD SHOW UP
         const chordPositions = {
             1: [[150, 30], [150, 50], [150, 70]],
@@ -215,38 +237,104 @@
         });
       }
 
+      function drawA(){
+        let canvas = document.getElementById("chordCanvas");
+        let ctx = canvas.getContext("2d");
+        drawStrings(ctx, canvas);
 
-      const openModalButtons = document.querySelectorAll('[data-modal-target]');
-      const closeModalButtons = document.querySelectorAll('[data-close-button]');
-      const overlay = document.getElementById('overlay');
-
-      openModalButtons.forEach(button => {
-        button.addEventListener('click', () => {
-          const modal = document.querySelector(button.dataset.modalTarget);
-          openModal(modal);
-        })
-      })
-      closeModalButtons.forEach(button => {
-        button.addEventListener('click', () => {
-          const modal = button.closest('.modal');
-          closeModal(modal);
-        })
-      })
-
-      function openModal(modal){
-        if(modal == null) return
-
-        modal.classList.add('active');
-        overlay.classList.add('active');
+        drawChord(ctx, 1);
       }
-      function closeModal(modal){
-        if(modal == null) return
+      function drawB(){
+        let canvas = document.getElementById("chordCanvas");
+        let ctx = canvas.getContext("2d");
+        drawStrings(ctx, canvas);
 
-        modal.classList.remove('active');
-        overlay.classList.remove('active');
+        drawChord(ctx, 2);
       }
+      function drawC(){
+        let canvas = document.getElementById("chordCanvas");
+        let ctx = canvas.getContext("2d");
+        drawStrings(ctx, canvas);
 
-      </script>
-    </body>
+        drawChord(ctx, 3);
+      }
+      function drawD(){
+        let canvas = document.getElementById("chordCanvas");
+        let ctx = canvas.getContext("2d");
+        drawStrings(ctx, canvas);
 
+        drawChord(ctx, 4);
+      }
+      function drawE(){
+        let canvas = document.getElementById("chordCanvas");
+        let ctx = canvas.getContext("2d");
+        drawStrings(ctx, canvas);
+
+        drawChord(ctx, 5);
+      }
+      function drawF(){
+        let canvas = document.getElementById("chordCanvas");
+        let ctx = canvas.getContext("2d");
+        drawStrings(ctx, canvas);
+
+        drawChord(ctx, 6);
+      }
+      function drawG(){
+        let canvas = document.getElementById("chordCanvas");
+        let ctx = canvas.getContext("2d");
+        drawStrings(ctx, canvas);
+
+        drawChord(ctx, 7);
+      }
+      function drawAm(){
+        let canvas = document.getElementById("chordCanvas");
+        let ctx = canvas.getContext("2d");
+        drawStrings(ctx, canvas);
+
+        drawChord(ctx, 8);
+      }
+      function drawBm(){
+        let canvas = document.getElementById("chordCanvas");
+        let ctx = canvas.getContext("2d");
+        drawStrings(ctx, canvas);
+
+        drawChord(ctx, 9);
+      }
+      function drawCm(){
+        let canvas = document.getElementById("chordCanvas");
+        let ctx = canvas.getContext("2d");
+        drawStrings(ctx, canvas);
+
+        drawChord(ctx, 10);
+      }
+      function drawDm(){
+        let canvas = document.getElementById("chordCanvas");
+        let ctx = canvas.getContext("2d");
+        drawStrings(ctx, canvas);
+
+        drawChord(ctx, 11);
+      }
+      function drawEm(){
+        let canvas = document.getElementById("chordCanvas");
+        let ctx = canvas.getContext("2d");
+        drawStrings(ctx, canvas);
+
+        drawChord(ctx, 12);
+      }
+      function drawFm(){
+        let canvas = document.getElementById("chordCanvas");
+        let ctx = canvas.getContext("2d");
+        drawStrings(ctx, canvas);
+
+        drawChord(ctx, 13);
+      }
+      function drawGm(){
+        let canvas = document.getElementById("chordCanvas");
+        let ctx = canvas.getContext("2d");
+        drawStrings(ctx, canvas);
+
+        drawChord(ctx, 14);
+      }
+    </script>
+  </body>
 </html>
