@@ -74,6 +74,8 @@
         }
         .chordSelectorContainer2{
           top: 360px;
+          left: 400px; /* Adjust the left position */
+          width: 700px;
         }
         .minor{
           position: absolute;
@@ -148,17 +150,13 @@
       <div class="chordSelectorContainer2">
         <button onclick="drawAm()">Am Chord</button>
         
-        <button onclick="drawBm()">Bm Chord</button>
-        
-        <button onclick="drawCm()">Cm Chord</button>
+        <button onclick="drawBm()">Bm/Cm Chord</button>
 
         <button onclick="drawDm()">Dm Chord</button>
 
         <button onclick="drawEm()">Em Chord</button>
 
-        <button onclick="drawFm()">Fm Chord</button>
-
-        <button onclick="drawGm()">Gm Chord</button>
+        <button onclick="drawFm()">Fm/Gm Chord</button>
       </div>
       
 
@@ -300,13 +298,6 @@
 
         drawChord(ctx, 9);
       }
-      function drawCm(){
-        let canvas = document.getElementById("chordCanvas");
-        let ctx = canvas.getContext("2d");
-        drawStrings(ctx, canvas);
-
-        drawChord(ctx, 10);
-      }
       function drawDm(){
         let canvas = document.getElementById("chordCanvas");
         let ctx = canvas.getContext("2d");
@@ -327,13 +318,6 @@
         drawStrings(ctx, canvas);
 
         drawChord(ctx, 13);
-      }
-      function drawGm(){
-        let canvas = document.getElementById("chordCanvas");
-        let ctx = canvas.getContext("2d");
-        drawStrings(ctx, canvas);
-
-        drawChord(ctx, 14);
       }
     </script>
   </body>
