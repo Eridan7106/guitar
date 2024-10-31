@@ -12,13 +12,18 @@
       overflow: auto; /* Ensure scrolling is enabled */
       -ms-overflow-style: none;  /* IE and Edge */
       scrollbar-width: none;  /* Firefox */
+      overflow-y: scroll; /* Hide vertical scrollbar */
     }
 
     /* Hide scrollbar for Chrome, Safari, Opera, and Opera GX */
     body::-webkit-scrollbar {
       display: none;
     }
-    
+    *{
+      -ms-overflow-style: none;  /* IE and Edge */
+      scrollbar-width: none;  /* Firefox */
+    }
+
     .topnav {
       overflow: hidden;
       background-color: #333;
